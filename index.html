@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>🛒 My Online Store</h1>
+    </header>
+
+    <div class="container">
+        <div class="store">
+            <!-- Product 1 -->
+            <div class="item">
+                <img src="https://via.placeholder.com/250" alt="Wireless Headphones">
+                <h2>Wireless Headphones</h2>
+                <p>Price: <strong>$59</strong></p>
+                <p>Code: ITEM001</p>
+                <p>High-quality Bluetooth headphones with noise cancellation.</p>
+                <button onclick="buyItem('Wireless Headphones', 'ITEM001', '59')">Buy</button>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="item">
+                <img src="https://via.placeholder.com/250" alt="Smartwatch">
+                <h2>Smartwatch</h2>
+                <p>Price: <strong>$99</strong></p>
+                <p>Code: ITEM002</p>
+                <p>Feature-packed smartwatch with heart rate tracking.</p>
+                <button onclick="buyItem('Smartwatch', 'ITEM002', '99')">Buy</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 My Online Store</p>
+    </footer>
+
+    <script>
+        function buyItem(name, code, price) {
+            let formData = new FormData();
+            formData.append("product", name);
+            formData.append("code", code);
+            formData.append("price", price);
+
+            fetch("send_email.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === "success") {
+                    alert("Order sent successfully!");
+                } else {
+                    alert("Failed to send order. Please try again.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+
+</body>
+</html>
